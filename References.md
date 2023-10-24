@@ -5,6 +5,13 @@ https://github.com/spotify/voyager
 
 https://github.com/llmware-ai/llmware
 
+
+### Agents
+
+https://github.com/yoheinakajima/babyagi
+
+
+
 ## Courses
 
 https://www.deeplearning.ai/resources/
