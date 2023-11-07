@@ -63,12 +63,12 @@ def load_documents(source_dir: str) -> list[Document]:
     n_workers = min(INGEST_THREADS, max(len(paths), 1))
     chunksize = round(len(paths) / n_workers)
     docs = []
-    with ProcessPoolExecutor(n_workers) as executor:
+    with ThreadPoolExecutor(n_workers) as executor:
         futures = []
         # split the load operations into chunks
         for i in range(0, len(paths), chunksize):
             # select a chunk of filenames
-            filepaths = paths[i : (i + chunksize)]
+            filepaths = paths[i: (i + chunksize)]
             # submit the task
             future = executor.submit(load_document_batch, filepaths)
             futures.append(future)

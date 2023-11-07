@@ -171,3 +171,4 @@ notebook/
 # Dummy test
 test_dummy
 
+localGPT_test/creds.env
