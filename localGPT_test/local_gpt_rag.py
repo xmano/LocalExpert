@@ -33,12 +33,15 @@ def query(texts):
 q = input("input your Query: \n")
 
 response = (
-    client.query.get("Local_GPT_Chunks", ["text"])
-    .with_hybrid(query=q, vector=query(q))
-    # .with_generate(single_prompt="generate the best answer possible which makes sense and answers the asked question: {text}")
+    client.query.get("Local_GPT_Chunks", ["text", 'page'])
+    .with_near_vector({"vector": query(q)})
+    .with_generate(
+        grouped_task="generate a meaningful answer for query, define and summarize the answer, answer just what the query asks don't generate extra answer",
+    )
     .with_limit(1)
     .do()
 )
 
+# print(response)
 for i in response['data']['Get']['Local_GPT_Chunks']:
     pprint.pprint(i['text'])

@@ -18,6 +18,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 import nltk
 import gensim
 import requests
+import time
 
 nltk.download('wordnet')
 client = weaviate.Client(
@@ -54,6 +55,7 @@ def preprocess(text):
 
 
 def query(texts):
+    time.sleep(1)
     response = requests.post(api_url, headers=headers, json={"inputs": texts, "options":{"wait_for_model":True}})
     return response.json()
 
@@ -71,7 +73,6 @@ for file in paths:
     loader = PyMuPDFLoader(file)
     data = loader.load()
     doc_list.append(data)
-    print(data)
 
 
 text_list = []
@@ -99,11 +100,11 @@ for i in range(len(doc_list)):
                 "trapped": metadata['trapped']
             }
 
-            # batch.add_data_object(
-            #     data_object=chunk_data,
-            #     class_name="Local_GPT_Chunks",
-            #     vector=query(texts[j].page_content)
-            # )
+            batch.add_data_object(
+                data_object=chunk_data,
+                class_name="Local_GPT_Chunks",
+                vector=query(texts[j].page_content)
+            )
 
     #
     # # LDA can only use raw term counts for LDA because it is a probabilistic graphical model
