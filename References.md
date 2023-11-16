@@ -10,6 +10,7 @@ https://github.com/llmware-ai/llmware
 ## Tools for creation
 
 https://www.npmjs.com/package/create-llama
+
 https://blog.llamaindex.ai/create-llama-a-command-line-tool-to-generate-llamaindex-apps-8f7683021191
 
 
